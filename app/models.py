@@ -88,73 +88,73 @@ class DjangoAdminLog(models.Model):
     content_type = models.ForeignKey(
         'DjangoContentType', models.DO_NOTHING, blank=True, null=True,
     )
-    user=models.ForeignKey(AuthUser, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
-        managed=False
-        db_table='django_admin_log'
+        managed = False
+        db_table = 'django_admin_log'
 
 
 class DjangoContentType(models.Model):
-    app_label=models.CharField(max_length = 100)
-    model=models.CharField(max_length = 100)
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
 
     class Meta:
-        managed=False
-        db_table='django_content_type'
-        unique_together=(('app_label', 'model'),)
+        managed = False
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
 
 
 class DjangoMigrations(models.Model):
-    id=models.BigAutoField(primary_key = True)
-    app=models.CharField(max_length = 255)
-    name=models.CharField(max_length = 255)
-    applied=models.DateTimeField()
+    id = models.BigAutoField(primary_key=True)
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
 
     class Meta:
-        managed=False
-        db_table='django_migrations'
+        managed = False
+        db_table = 'django_migrations'
 
 
 class DjangoSession(models.Model):
-    session_key=models.CharField(primary_key = True, max_length = 40)
-    session_data=models.TextField()
-    expire_date=models.DateTimeField()
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
 
     class Meta:
-        managed=False
-        db_table='django_session'
+        managed = False
+        db_table = 'django_session'
 
 
 class Hell(models.Model):
-    user_id=models.ForeignKey('user', models.DO_NOTHING)
-    death_date=models.DateTimeField()
+    user_id = models.ForeignKey('user', models.DO_NOTHING)
+    death_date = models.DateTimeField()
 
     class Meta:
-        managed=False
-        db_table='hell'
+        managed = False
+        db_table = 'hell'
 
 
 class Sequence(models.Model):
-    name=models.CharField(max_length = 255)
-    user_id=models.ForeignKey('user', models.DO_NOTHING)
-    iffft_key=models.CharField(max_length = 255)
-    iffft_event=models.CharField(max_length = 255)
-    created_at=models.DateTimeField()
-    updated_at=models.DateTimeField()
+    name = models.CharField(max_length=255)
+    user_id = models.ForeignKey('user', models.DO_NOTHING)
+    iffft_key = models.CharField(max_length=255)
+    iffft_event = models.CharField(max_length=255)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
 
     class Meta:
-        managed=False
-        db_table='sequence'
+        managed = False
+        db_table = 'sequence'
 
 
 class User(models.Model):
-    username=models.CharField(max_length = 255)
-    password=models.CharField(max_length = 255)
-    email=models.CharField(max_length = 255)
-    created_at=models.DateTimeField()
-    updated_at=models.DateTimeField()
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
 
     class Meta:
-        managed=False
-        db_table='user'
+        managed = False
+        db_table = 'user'

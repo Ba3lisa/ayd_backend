@@ -9,14 +9,16 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from __future__ import annotations
 
-from pathlib import Path
-import os, sys
-from typing import List
-import pymysql
-
-###################### LOGGING CONFIGURATION ######################
 import logging.config
+import os
+import sys
+from pathlib import Path
+from typing import List
+
+import pymysql
+###################### LOGGING CONFIGURATION ######################
 logger_file = f'{os.getenv("LOGGER_DIR", "/logs")}/backend.log'
 if not os.path.exists(logger_file):
     with open(logger_file, 'w') as f:
@@ -26,30 +28,30 @@ logging.config.dictConfig({
     'disable_existing_loggers': False,
     'formatters': {
         'console': {
-            'format': '%(name)-12s %(levelname)-8s %(message)s'
+            'format': '%(name)-12s %(levelname)-8s %(message)s',
         },
         'file': {
-            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
-        }
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'console'
+            'formatter': 'console',
         },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'file',
-            'filename': logger_file
-        }
+            'filename': logger_file,
+        },
     },
     'loggers': {
         '': {
             'level': 'DEBUG',
-            'handlers': ['console', 'file']
-        }
-    }
+            'handlers': ['console', 'file'],
+        },
+    },
 })
 ##################################################################
 
@@ -81,7 +83,7 @@ SECRET_KEY = 'django-insecure-c8s*q@$k+k-j66^oc!km)=7dh7ne6*hi40x=_r2grt69yg-zr8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: List[str] = []
+ALLOWED_HOSTS: list[str] = []
 
 
 # Application definition
@@ -142,7 +144,7 @@ DATABASES = {
         # 'TEST':{
         #     'NAME': MYSQL_TEST_HOST,
         # }
-    }
+    },
 }
 
 # Password validation

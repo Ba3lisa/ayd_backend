@@ -86,8 +86,12 @@ class DjangoAdminLog(models.Model):
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
     content_type = models.ForeignKey(
+<<<<<<< HEAD
         'DjangoContentType', models.DO_NOTHING, blank=True, null=True,
     )
+=======
+        'DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+>>>>>>> 575b716edcdb6f3544258e623629929c6be24d87
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:

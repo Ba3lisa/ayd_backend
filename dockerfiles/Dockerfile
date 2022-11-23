@@ -1,15 +1,16 @@
 FROM ubuntu:18.04
 
-# Build tools and essential libraries
-RUN apt-get update -yqq && apt-get install --yes --no-install-recommends build-essential \
-    python3-pip python3-dev
-
-# Upgrade pip
-RUN apt-get update -yqq && apt install python3-pip -y
-RUN python3 -m pip install --upgrade pip
+# Upgrade to python 3.9
+ENV TZ=America/Edmonton
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update && apt-get install -y build-essential \
+    python3.9 python3.9-dev \
+    python3-pip python3.9-distutils
 
 # Symlink python3 -> python
-RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/python3.9 /usr/bin/python
 
 # Python requirements
 ADD ./dockerfiles/requirements.txt /

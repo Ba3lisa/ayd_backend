@@ -14,8 +14,8 @@ jobs:
       - name: Check if dockerfiles/* changed
         run: |
           for file in ${{ steps.files.output.modified }}; do
+            echo "$file changed"
             if [[ $file == "dockerfiles/"* ]]; then
-              echo "$file changed"
               echo "::set-output name=changed::true"
             fi
           done

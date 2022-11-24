@@ -21,17 +21,12 @@ jobs:
           done
       - name: Push docker image
         if: steps.docker-check.outputs.changed == 'true'
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-        uses: docker/setup-buildx-action@v2
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ayd_backend:latest
+        uses: Ba3lisa/docker-publish@v1
+          with:
+            registry_username: ${{ secrets.DOCKER_USERNAME }}
+            registry_password: ${{ secrets.DOCKER_PASSWORD }}
+            image_name: ayd_backend
+            image_tag: latest
   code-cleanup:
     runs-on: ubuntu-latest
     steps:

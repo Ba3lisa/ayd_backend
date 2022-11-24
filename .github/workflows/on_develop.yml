@@ -28,7 +28,7 @@ jobs:
           image_name: ayd_backend
           image_tag: latest
   code-cleanup:
-    depends-on: docker-check
+    needs: docker-check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

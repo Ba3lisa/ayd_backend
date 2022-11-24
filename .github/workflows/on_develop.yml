@@ -15,8 +15,8 @@ jobs:
         run: |
           for file in ${{ steps.files.outputs.modified }}; do
             echo "$file changed"
-            if [[ $file == "dockerfiles/"* ]]; then
-              echo "::set-output name=changed::true"
+            if [[ $file == *"dockerfiles"* ]]; then
+              echo "changed=true" >> $GITHUB_OUTPUT
             fi
           done
       - name: Push docker image

@@ -22,12 +22,13 @@ jobs:
       - name: Push docker image
         if: steps.docker-check.outputs.changed == 'true'
         uses: Ba3lisa/docker-publish@v1
-          with:
-            registry_username: ${{ secrets.DOCKER_USERNAME }}
-            registry_password: ${{ secrets.DOCKER_PASSWORD }}
-            image_name: ayd_backend
-            image_tag: latest
+        with:
+          registry_username: ${{ secrets.DOCKER_USERNAME }}
+          registry_password: ${{ secrets.DOCKER_PASSWORD }}
+          image_name: ayd_backend
+          image_tag: latest
   code-cleanup:
+    depends-on: docker-check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

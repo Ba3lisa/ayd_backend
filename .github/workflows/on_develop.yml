@@ -4,13 +4,38 @@ on:
     branches: [develop]
 
 jobs:
-  main:
+  docker-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - name: Check if dockerfiles/* changed
+        id: dockercheck
+        run: |
+          for file in ${{ steps.files.outputs.modified }}; do
+            if [[ $file == *"dockerfiles"* ]]; then
+              echo "$file changed"
+              echo "changed=true" >> $GITHUB_OUTPUT
+            fi
+          done
+      - name: Push docker image
+        if: steps.dockercheck.outputs.changed == 'true'
+        uses: Ba3lisa/docker-publish@v1
+        with:
+          registry_username: ${{ secrets.DOCKER_USERNAME }}
+          registry_password: ${{ secrets.DOCKER_PASSWORD }}
+          image_name: ayd_backend
+          image_tag: latest
+  code-cleanup:
+    needs: docker-check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
       with:
-        python-version: 3.x
+        python-version: 3.9
     - uses: pre-commit/action@v3.0.0
     - uses: pre-commit-ci/lite-action@v1.0.0
       if: always()

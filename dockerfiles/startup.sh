@@ -11,4 +11,5 @@ python manage.py migrate --run-syncdb
 python manage.py runserver 0.0.0.0:$DJANGO_PORT
 
 # DEBUG
+echo Application failed to start
 tail -f /dev/null

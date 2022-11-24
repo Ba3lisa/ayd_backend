@@ -13,7 +13,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - name: Check if dockerfiles/* changed
         run: |
-          for file in ${{ steps.files.output.modified }}; do
+          for file in ${{ steps.files.outputs.modified }}; do
             echo "$file changed"
             if [[ $file == "dockerfiles/"* ]]; then
               echo "::set-output name=changed::true"

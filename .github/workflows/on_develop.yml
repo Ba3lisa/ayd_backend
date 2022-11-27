@@ -3,31 +3,11 @@ on:
   push:
     branches: [develop]
 
+env:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch: true
+
 jobs:
-  docker-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - id: files
-        uses: jitterbit/get-changed-files@v1
-      - name: Check if dockerfiles/* changed
-        id: dockercheck
-        run: |
-          for file in ${{ steps.files.outputs.modified }}; do
-            if [[ $file == *"dockerfiles"* ]]; then
-              echo "$file changed"
-              echo "changed=true" >> $GITHUB_OUTPUT
-            fi
-          done
-      - name: Push docker image
-        if: steps.dockercheck.outputs.changed == 'true'
-        uses: Ba3lisa/docker-publish@v1
-        with:
-          registry_username: ${{ secrets.DOCKER_USERNAME }}
-          registry_password: ${{ secrets.DOCKER_PASSWORD }}
-          image_name: ayd_backend
-          image_tag: latest
   code-cleanup:
     needs: docker-check
     runs-on: ubuntu-latest
